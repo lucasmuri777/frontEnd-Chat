@@ -7,6 +7,10 @@ export const ContainerChats = styled.div`
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+
+    @media (max-width: 660px) {
+        width: 100%;
+    }
 `
 
 export const WrapperChats = styled.div`
@@ -23,11 +27,12 @@ export const chats = styled.ul`
     li{
         width: 100%;
         height: 90px;
+
         a{
             width: 100%;
             height: 100%;
             display: flex;
-            justify-content: left;
+            justify-content: space-between;
             padding: 0 20px;
             gap: 10px;
             align-items: center;
@@ -35,31 +40,39 @@ export const chats = styled.ul`
             overflow: hidden;
             border: 1px solid #9410ec;
             cursor: pointer;
+            text-decoration: none;
+
 
             &:hover{
                 background-color: #9410ec2b;
             }
-
-            div.type-wrapper{
+            div.infos-wrapper{
                 display: flex;
-                flex-wrap: nowrap;
-                flex-direction: column;
-                justify-content: center;
                 align-items: center;
-                gap: 5px;
-                border-radius: 5px;
-                background-color: #9410ec2b;
-                border: 1px solid #9410ec;
-                width: 60px;
-                height: 50px;
-                strong{
-                    font-size: 10px;
+                gap: 10px;
+                div.type-wrapper{
+                    display: flex;
+                    flex-wrap: nowrap;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 5px;
+                    border-radius: 5px;
+                    background-color: #9410ec2b;
+                    border: 1px solid #9410ec;
+                    width: 60px;
+                    height: 50px;
+                    strong{
+                        font-size: 10px;
+                    }
+                    padding: 10px;
                 }
-                padding: 10px;
             }
+
         }
         img{
             width: 50px;
+            height: 50px;
             border-radius: 10px;
         }
     }

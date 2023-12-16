@@ -10,6 +10,19 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
         outline: 0;
+
+        &::-webkit-scrollbar {
+            width: 10px;
+        }
+        &::-webkit-scrollbar-track {
+            background: #07000c;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #9410ec;
+            border-radius: 10px;
+        }
+    
     }
     html,body{
         height: 100%;
@@ -38,6 +51,11 @@ export const ContainerApp = styled.div`
     height: 100%;
     display: flex;
     flex-direction: row;
+
+    @media (max-width: 660px) {
+        flex-direction: column;
+    }
+
 `
 
 //220px menu 1080 pro resto

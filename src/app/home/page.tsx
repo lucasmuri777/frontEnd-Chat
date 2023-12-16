@@ -9,19 +9,25 @@ import * as H from '../../styles/Home/HomeStyle'
 import { FaUserFriends } from "react-icons/fa";
 import { IoChatboxEllipses } from "react-icons/io5";
 import Chats from '@/components/home/Chats';
+import { socket } from '@/socket';
 
 type Filter = 'chats' | 'friends' | 'all';
 export default function Home() {
   const router = useRouter();
 
   const [filter, setFilter] = useState<Filter>('all');
+  const [socketInstance] = useState(socket());
     
   const userCtx = useUser();
   useEffect(()=>{
     if(!userCtx?.user){
       router.push('/')
     }
+    
   },[userCtx])
+  useEffect(()=>{
+    
+  },[])
 
   const handleChangeFilter = (filterSet: Filter) => {
     if(filterSet == filter){

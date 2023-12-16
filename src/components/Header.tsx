@@ -5,6 +5,14 @@ import {useState, useEffect} from 'react'
 import { GoHome, GoHomeFill } from "react-icons/go";
 import { IoIosSearch } from "react-icons/io";
 import { FaPlus } from "react-icons/fa6";
+import { reqUrl } from '@/app/api/req';
+import Link from 'next/link';
+import { IoNotificationsOutline, IoNotificationsSharp } from "react-icons/io5";
+import { IoPersonCircleSharp } from "react-icons/io5";
+import { MdExitToApp } from "react-icons/md";
+
+
+import { usePathname } from 'next/navigation';
 
 
 
@@ -14,23 +22,12 @@ type Users = {
     photo: string,
     sair: ()=>void,
 }
-type Menu = 'home' | 'search' | 'createChat'
+type Menu = '/home' | '/search' | '/createChat' | '' | '/invites'
 
 export default function Header({name, photo, sair}: Users) {
-    const [menu, setMenu] = useState<Menu>('home')
+    const [menu, setMenu] = useState<Menu>('')
     const [userSettings, setUserSettings] = useState(false)
-
-    const handleChangeMenu = (menuActive: string) => {
-        switch(menuActive){
-            case 'home':
-                setMenu('home')
-                break
-            case 'search':
-                setMenu('search')
-                break
-        }
-    }
-
+    const path = usePathname();
     useEffect(()=>{
         if(userSettings){
            let interval = setInterval(()=>{
@@ -39,36 +36,52 @@ export default function Header({name, photo, sair}: Users) {
            }, 8000)
         }
     },[userSettings])
+    useEffect(()=>{
+        setMenu(path as Menu)
+    })
 
     return( 
         <H.Header>
             <H.WrapperHeader>
                 <H.Nav>
                     <ul>
-                        <li className={menu == 'home' ? 'active' : ''}>    
-                            <a href='/home' onClick={() => handleChangeMenu('search')}>
-                            {menu == 'home' &&(
+                        <li className={menu == '/home' ? 'active' : ''}>    
+                            <Link href='/home'>
+                            {menu == '/home' &&(
                                 <GoHomeFill/>
                             )}
-                            {menu != 'home' &&(
+                            {menu != '/home' &&(
                                 <GoHome/>
                             )}
-                                Home
-                            </a>
+                                <p>Home</p>
+                            </Link>
                         </li>
-                        <li className={menu == 'search' ? 'active' : ''}>
+                        <li className={menu == '/search' ? 'active' : ''}>
                             
-                            <a href='/search' onClick={() => handleChangeMenu('search')}>
+                            <Link href='/search'>
                                 <IoIosSearch/>
-                                Search
-                            </a>
+                                <p>Search</p>
+                            </Link>
                         </li>
-                        <li className={menu == 'createChat' ? 'active' : ''}>
+                        <li className={menu == '/createChat' ? 'active' : ''}>
                             
-                            <a href='/createChat' onClick={() => handleChangeMenu('createChat')}>
+                            <Link href='/createChat'>
                                 <FaPlus/>
-                                Chat
-                            </a>
+                                <p>Chat</p>
+                            </Link>
+                        </li>
+                        <li className={menu == '/invites' ? 'active' : ''}>
+                            
+                            <Link href='/invites'>
+                                {menu == '/invites' &&(
+                                    <IoNotificationsSharp/>
+                                )}
+                                {menu != '/invites' &&(
+                                    
+                                    <IoNotificationsOutline/>
+                                )}
+                                <p>Invites</p>
+                            </Link>
                         </li>
                     </ul>
                 </H.Nav>
@@ -77,13 +90,19 @@ export default function Header({name, photo, sair}: Users) {
                     {
                         userSettings && (
                             <H.settings>
-                                <a href='/settings'>Configurações</a>
-                                <a onClick={sair}>Sair</a>
+                                <Link href='/settings'>
+                                    <IoPersonCircleSharp/> 
+                                    <p>Account</p>
+                                </Link>
+                                <a onClick={sair}>
+                                    <MdExitToApp/> 
+                                    <p>Exit</p>
+                                </a>
                             </H.settings>
                         )
                     }
                     <div className='img-wrapper'>
-                        <img src={`${process.env.SERVER}/media/${photo}`} alt={name} />
+                        <img src={`${reqUrl}/media/${photo}`} alt={name} />
                     </div>
                     <h3>{name}</h3>
                 </H.UserInfos>

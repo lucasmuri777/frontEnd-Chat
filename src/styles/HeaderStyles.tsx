@@ -6,12 +6,19 @@ export const Header = styled.header`
     min-width: 220px;
     height: 100%;
     background-color: transparent;
+    display: flex;
+    justify-content: center;
     border-right: 1px solid #9410ec;
     h1,h3,button{
         color: white
     }
-    display: flex;
-    justify-content: center;
+    @media (max-width: 660px) {
+        width: 100%;
+        height: auto !important;
+        max-width: 100%;
+        min-width: 100%;
+    }
+
 `
 
 export const WrapperHeader = styled.div`
@@ -22,6 +29,10 @@ export const WrapperHeader = styled.div`
     justify-content: space-between;
     padding: 15px 20px;
     gap: 10px;
+    
+    @media (max-width: 660px) {
+       flex-direction: row;
+    }
 `
 export const Nav = styled.nav`
     width: 100%;
@@ -34,7 +45,7 @@ export const Nav = styled.nav`
         flex-direction: column;
         list-style: none;
         gap: 25px;
-
+        
         li{
             width: 100%;
             height: 30px;
@@ -77,6 +88,33 @@ export const Nav = styled.nav`
             }
         }
     }
+    @media (max-width: 660px) {
+        width: 70%!important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        height: 100%;
+        ul{
+            width:90%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            a{
+                text-align: center!important;
+                justify-content: center;
+                p{
+                    display: none;
+                }
+            }
+        }
+    }
+    @media (max-width: 450px){
+        ul{
+            gap: 5px !important;
+        }
+    }
 `
 
 export const UserInfos = styled.div`
@@ -116,7 +154,18 @@ export const UserInfos = styled.div`
         font-size: 17px;
         text-align: right;
     }
+    @media (max-width: 660px) {
+        height: 100%;
+        align-items: center;
+        width: 30%;
 
+    }
+    @media (max-width: 450px){
+        justify-content: right!important;
+        h3{
+            display: none !important;
+        }
+    }
 `
 
 export const settings = styled.div`
@@ -134,10 +183,28 @@ export const settings = styled.div`
         width: 100%;
         padding: 10px 20px;
         text-decoration: none;
-        text-align: left;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        gap:5px;
         cursor: pointer;
         &:hover{
             background-color: #9410ec2b;
+        }
+    }
+    svg{
+        font-size: 30px;
+    }
+    @media (max-width: 660px) {
+        top: 80px;
+        background-color: #07000c;
+    }
+    @media (max-width: 450px){
+        p{
+            display: none!important;
+        }
+        a{
+            justify-content: center!important;;
         }
     }
 

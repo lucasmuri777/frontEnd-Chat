@@ -43,6 +43,25 @@ export const FormContainer = styled.div<PropsForm>`
     &:nth-of-type(2){
         border-radius: 0 10px 10px 0;
     }
+    @media (max-width: 800px) {
+        width: 100%;
+        display: block;
+        border-radius: 10px!important;
+        &:nth-of-type(${props => props.idActive}){
+            display: none;
+        }
+       
+    }
+    @media (max-width: 356px) {
+        width: 100%;
+        display: block;
+        padding: 0px!important;
+        border-radius: 10px!important;
+        &:nth-of-type(${props => props.idActive}){
+            display: none;
+        }
+       
+    }
 `;
 
 export const ContainerItens = styled.div`
@@ -61,5 +80,7 @@ export const BoxForm = styled.div`
     border-radius: 10px;
     display: flex;
     flex-wrap: nowrap;
-
+    @media (max-width: 800px) {
+        width: 100%;
+    }
 `

@@ -1,4 +1,5 @@
 'use client'
+import { reqUrl } from '@/app/api/req'
 import { User } from '@/types/User'
 import { useRouter } from 'next/navigation'
 import {createContext, useContext, useState, useEffect} from 'react'
@@ -38,7 +39,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             if(user.id){
                 let token = localStorage.getItem('token');
                 if(token){
-                    let hasUser = await fetch('http://localhost:4000/hasUser', {
+                    let hasUser = await fetch(`${reqUrl}/hasUser`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -74,6 +75,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     useEffect(()=>{
         let tokenSalvo = localStorage.getItem('token');
         let userSalvo = localStorage.getItem('user');
+        if(!tokenSalvo || !userSalvo){
+            localStorage.removeItem('user')
+            localStorage.removeItem('token')
+            router.push('/')
+            return
+        }
+
+        
         if(typeof tokenSalvo != 'undefined' || tokenSalvo != null){
             setToken(tokenSalvo as string);
         }
@@ -82,6 +91,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             hasUser(JSON.parse(userSalvo as string))
             
         }
+
         
     },[])
 

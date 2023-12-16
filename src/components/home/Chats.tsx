@@ -5,6 +5,8 @@ import { IoChatboxEllipses } from "react-icons/io5";
 
 import {Chat} from '../../types/Chat'
 import {Friend} from '../../types/Friend'
+import { reqUrl } from "@/app/api/req";
+import Link from "next/link";
 
 
 type ChatProps = {
@@ -25,7 +27,7 @@ export default function Chats({active}: ChatProps) {
         let token = localStorage.getItem('token');
         if(token){
             try{
-                let fet = await fetch('http://localhost:4000/home', {
+                let fet = await fetch(`${reqUrl}/home`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -55,7 +57,8 @@ export default function Chats({active}: ChatProps) {
                         friendPadrao = {
                             _id: friend._id,
                             name: friend.name,
-                            photo: friend.photo
+                            photo: friend.photo,
+                            email: friend.email
                         }
                         friends.push(friendPadrao as Friend)
                     })
@@ -63,6 +66,33 @@ export default function Chats({active}: ChatProps) {
                     return;
                 }
                 
+            }catch(err){
+                console.log(err);
+            }
+        }
+    }
+
+    const handleRemoveFriend = async(email: string) => {
+        if(email){
+            try{
+                let remove = await fetch(`${reqUrl}/remove`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({
+                        emailInvite: email
+                    })
+                })
+                let data = await remove.json();
+                console.log(data)
+                if(data.inviteReject){
+                    alert('Removido com sucesso')
+                    setFriends(friends.filter((friend) => friend.email != email))
+                    return;
+                }
             }catch(err){
                 console.log(err);
             }
@@ -87,26 +117,33 @@ export default function Chats({active}: ChatProps) {
         <> 
         {show.chats.map((chat) => (
             <li key={chat._id}>
-                <a>
-                    <img alt="chat" src="http://localhost:4000/media/98121175590564sFLUBMxwDLiGxri_pnakP.jpg" />
-                    <div className='type-wrapper'>
-                        <IoChatboxEllipses />
-                        <strong>Chat</strong>
-                    </div> 
-                    <p>{chat.name}</p>
-                </a>
+                <Link href={`/chat/${chat._id}`} > 
+                        <div className="infos-wrapper">
+                            <img alt="chat" src={`${reqUrl}/media/${chat.photo}`} />
+                            <div className='type-wrapper'>
+                                <IoChatboxEllipses />
+                                <strong>Chat</strong>
+                            </div> 
+                            <p>{chat.name}</p>
+                        </div>
+                        <p>EXIT</p>
+                </Link>
             </li>
         ))}
         {show.friends.map((friend) => (
             <li key={friend._id}>
-                <a>
-                    <img alt="chat" src="http://localhost:4000/media/98121175590564sFLUBMxwDLiGxri_pnakP.jpg" />
-                    <div className='type-wrapper'>
-                        <FaUserFriends />
-                        <strong>Friend</strong>
-                    </div> 
-                    <p>{friend.name}</p>
-                </a>
+                <Link href={`/friend/${friend._id}`}>
+                    <div className="infos-wrapper">
+                        <img alt="chat" src={`${reqUrl}/media/${friend.photo}`} />
+                        <div className='type-wrapper'>
+                            <FaUserFriends />
+                            <strong>Friend</strong>
+                        </div> 
+                        <p>{friend.name}</p>
+                    </div>
+                    <p onClick={()=>handleRemoveFriend(friend.email)}>REMOVE</p>
+                </Link>
+                
             </li>
         ))}    
         </>

@@ -1,0 +1,1 @@
+export const reqSocket = process.env.SOCKET;

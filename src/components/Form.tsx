@@ -1,4 +1,5 @@
 'use client'
+import { reqUrl } from '@/app/api/req'
 import * as F from '../styles/FormStyles'
 import { useUser } from '@/contexts/UserContext'
 import {useRouter} from 'next/navigation'
@@ -28,7 +29,7 @@ export default function Form({type, idActive, setActive}: FormProps) {
         if(type === 'register'){
             if(name.length > 0 && name.length < 16){
                 try{
-                    let teste = await fetch('http://localhost:4000/register', {
+                    let teste = await fetch(`${reqUrl}/register`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -55,8 +56,9 @@ export default function Form({type, idActive, setActive}: FormProps) {
 
         }
         if(type === 'login'){
+            console.log(reqUrl)
             try{
-                let teste = await fetch('http://localhost:4000/login', {
+                let teste = await fetch(`${reqUrl}/login`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

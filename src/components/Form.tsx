@@ -31,9 +31,12 @@ export default function Form({type, idActive, setActive}: FormProps) {
                 try{
                     let teste = await fetch(`${reqUrl}/register`, {
                         method: 'POST',
+                        mode: 'cors', // Ou 'no-cors' se necessário
                         headers: {
                             'Content-Type': 'application/json',
-                            'Accept': 'application/json'
+                            'Accept': 'application/json',
+                            'Access-Control-Allow-Origin': 'https://front-end-chat-beta.vercel.app'
+                        
                         },
                         body: JSON.stringify({name, email, password})
                     })

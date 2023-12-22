@@ -13,7 +13,7 @@ import { FaHouseCircleCheck } from "react-icons/fa6";
 import { FaUserFriends } from "react-icons/fa";
 import { IoChatboxEllipses } from "react-icons/io5";
 
-import { reqUrl } from "../../app/api/req";
+import { reqImage, reqUrl } from "../../app/api/req";
 import FormChat from "./FormChat";
 
 
@@ -116,7 +116,7 @@ export default function Result({filter, results, setSearch}: PropsType) {
                         <S.Results key={friend.id}>
                             <S.ContainerPhotoInfos>
                                 <div className="image-wrapper">
-                                    <img src={`${reqUrl}/media/${friend.photo}`} alt={friend.name}/>
+                                    <img src={`${reqImage}${friend.photo}.jpg?alt=media`} alt={friend.name}/>
                                 </div>
                                 <div className="infos-wrapper">
                                     <p>
@@ -146,7 +146,7 @@ export default function Result({filter, results, setSearch}: PropsType) {
                 <S.Results key={chat.id}>
                     <S.ContainerPhotoInfos>
                         <div className="image-wrapper">
-                            <img src={`${reqUrl}/media/${chat.photo}`} alt={chat.name}/>
+                            <img src={`${reqImage}${chat.photo}.jpg?alt=media`} alt={chat.name}/>
                         </div>
                         <div className="infos-wrapper">
                             <p>

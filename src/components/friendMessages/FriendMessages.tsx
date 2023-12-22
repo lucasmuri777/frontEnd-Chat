@@ -5,7 +5,7 @@ import { MdInsertPhoto } from "react-icons/md";
 import { FaTrash } from "react-icons/fa";
 //import { socket } from "@/socket";
 import { useUser } from "@/contexts/UserContext";
-import { reqUrl } from "@/app/api/req";
+import { reqImage, reqUrl } from "@/app/api/req";
 import { useRouter } from "next/navigation";
 import { socket } from "@/socket";
 import { MdSend } from "react-icons/md";
@@ -163,6 +163,7 @@ export default function FriendMessages({id} : {id: string}) {
                     }
                     message.push(msgFormated);
                     setMsg('');
+                    handleRemoveImage();
                     socketInstance.emit('message', message);
                 }
 
@@ -198,7 +199,7 @@ export default function FriendMessages({id} : {id: string}) {
         <>
             <F.Perfil>
                 <div className="img-wrapper">
-                    <img src={`${reqUrl}/media/${friendInfos?.photo}`} alt="foto de perfil"/>
+                    <img src={`${reqImage}${friendInfos?.photo}.jpg?alt=media`} alt="foto de perfil"/>
                 </div>
                 <div className="infos-wrapper">
                     <h2>{friendInfos?.name}</h2>
@@ -212,7 +213,7 @@ export default function FriendMessages({id} : {id: string}) {
                             <div className="msg-single">
                                 <p>{message.message}</p>
                             </div>
-                            {message.image && <img src={`${reqUrl}/media/${message.image}`} alt={message.message}/>}
+                            {message.image && <img src={`${reqImage}${message.image}.jpg?alt=media`} alt={message.message}/>}
                         </div>
                     ))}
 
@@ -231,6 +232,7 @@ export default function FriendMessages({id} : {id: string}) {
                         accept="image/*" 
                         title="file" 
                         id="file" 
+                        name="image"
                         onChange={handleUpload}
                         hidden
                     />

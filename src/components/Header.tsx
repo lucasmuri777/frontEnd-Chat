@@ -5,7 +5,7 @@ import {useState, useEffect} from 'react'
 import { GoHome, GoHomeFill } from "react-icons/go";
 import { IoIosSearch } from "react-icons/io";
 import { FaPlus } from "react-icons/fa6";
-import { reqUrl } from '@/app/api/req';
+import { reqUrl, reqImage } from '@/app/api/req';
 import Link from 'next/link';
 import { IoNotificationsOutline, IoNotificationsSharp } from "react-icons/io5";
 import { IoPersonCircleSharp } from "react-icons/io5";
@@ -102,7 +102,7 @@ export default function Header({name, photo, sair}: Users) {
                         )
                     }
                     <div className='img-wrapper'>
-                        <img src={`${reqUrl}/media/${photo}`} alt={name} />
+                        <img src={`${reqImage}${photo}.jpg?alt=media`} alt={name} />
                     </div>
                     <h3>{name}</h3>
                 </H.UserInfos>

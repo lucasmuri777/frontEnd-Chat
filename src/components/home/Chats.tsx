@@ -5,7 +5,7 @@ import { IoChatboxEllipses } from "react-icons/io5";
 
 import {Chat} from '../../types/Chat'
 import {Friend} from '../../types/Friend'
-import { reqUrl } from "@/app/api/req";
+import { reqImage, reqUrl } from "@/app/api/req";
 import Link from "next/link";
 
 
@@ -119,7 +119,7 @@ export default function Chats({active}: ChatProps) {
             <li key={chat._id}>
                 <Link href={`/chat/${chat._id}`} > 
                         <div className="infos-wrapper">
-                            <img alt="chat" src={`${reqUrl}/media/${chat.photo}`} />
+                            <img alt="chat" src={`${reqImage}${chat.photo}.jpg?alt=media`} />
                             <div className='type-wrapper'>
                                 <IoChatboxEllipses />
                                 <strong>Chat</strong>
@@ -134,7 +134,7 @@ export default function Chats({active}: ChatProps) {
             <li key={friend._id}>
                 <Link href={`/friend/${friend._id}`}>
                     <div className="infos-wrapper">
-                        <img alt="chat" src={`${reqUrl}/media/${friend.photo}`} />
+                        <img alt="chat" src={`${reqImage}${friend.photo}.jpg?alt=media`} />
                         <div className='type-wrapper'>
                             <FaUserFriends />
                             <strong>Friend</strong>

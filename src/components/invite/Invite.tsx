@@ -3,7 +3,7 @@ import { useUser } from "@/contexts/UserContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import * as I from '../../styles/invites/InvitesStyle'
-import { reqUrl } from "../../app/api/req";
+import { reqImage, reqUrl } from "../../app/api/req";
 import { FaPlus, FaTrash } from "react-icons/fa6";
 
 type inviteType = {
@@ -80,7 +80,7 @@ export default function Invite({invites, setInvites}: PropsType) {
 
                     <div className="perfil-wrapper">
                         <div className="img-wrapper">
-                            <img src={`${reqUrl}/media/${invite.photo}`} alt={invite.name}/>
+                            <img src={`${reqImage}${invite.photo}.jpg?alt=media`} alt={invite.name}/>
                         </div>  
                         <div className="user-wrapper">
                         <p>{invite.name}</p>

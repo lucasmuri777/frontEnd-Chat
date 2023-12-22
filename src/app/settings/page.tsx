@@ -5,7 +5,7 @@ import { ContainerApp } from "@/styles/global";
 
 import {useEffect, useState} from 'react';
 import * as S from '../../styles/settings/SettingsStyles'
-import { reqUrl } from "../api/req";
+import { reqImage, reqUrl } from "../api/req";
 
 import { FaTrash } from "react-icons/fa";
 import { useRouter } from "next/navigation";
@@ -39,7 +39,7 @@ export default function Settings() {
 
     const handleRemoveImage = () => {
         setPhoto('');
-        setNamePhoto('default-perfil.jpg');
+        setNamePhoto('default-perfil');
         setRemove('true');
     }
 
@@ -102,7 +102,7 @@ export default function Settings() {
                                 <FaTrash />
                             </div>
                             <label htmlFor="photo">
-                                <img src={`${reqUrl}/media/${namePhoto}`} alt="Photo"/>
+                                <img src={`${reqImage}${namePhoto}.jpg?alt=media`} alt="Photo"/>
                             </label>
                         </label>
                     </S.WrapperImage>

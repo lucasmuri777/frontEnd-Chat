@@ -84,6 +84,9 @@ export const Message = styled.div`
         p{
             background-color: #9410ec7b;
         }
+        .msg-single{
+            justify-content: right;
+        }
     }
     .msg-single{
         max-width: 350px;
